@@ -10,9 +10,9 @@ CORS(app)
 @app.route('/load_model', methods=['GET'])
 def load_model():
     try:
-        with open('../../instagramReachAnalysis_trained_model.pkl', 'rb') as f:
+        with open('instagramReachAnalysis_trained_model.pkl', 'rb') as f:
             global model
-            model = joblib.load('../../instagramReachAnalysis_trained_model.pkl')
+            model = joblib.load('instagramReachAnalysis_trained_model.pkl')
         return jsonify({"message": "Model loaded successfully"})
     except FileNotFoundError:
         return jsonify({"error": "File not found"}), 404
