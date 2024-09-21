@@ -7,20 +7,11 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/load_model', methods=['GET'])
-def load_model():
-    try:
-        with open('instagramReachAnalysis_trained_model.pkl', 'rb') as f:
-            global model
-            model = joblib.load('instagramReachAnalysis_trained_model.pkl')
-        return jsonify({"message": "Model loaded successfully"})
-    except FileNotFoundError:
-        return jsonify({"error": "File not found"}), 404
-    except pickle.UnpicklingError as e:
-        return jsonify({"error": f"Error unpickling file: {str(e)}"}), 500
-    except Exception as e:
-        return jsonify({"error": f"Unexpected error: {str(e)}"}), 500
-    
+try:
+    model = joblib.load('instagramReachAnalysis_trained_model.pkl')
+except FileNotFoundError:
+    print("Model file not found. Ensure the file path is correct.")
+    model = None  # Set to None or handle it appropriately
 
 # Prediction endpoint
 @app.route('/predict', methods=['POST'])

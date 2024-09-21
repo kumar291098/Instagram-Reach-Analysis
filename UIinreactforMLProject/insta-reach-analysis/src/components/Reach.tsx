@@ -41,7 +41,7 @@ const PredictImpression: React.FC = () => {
   const handleSubmit = async (values: any) => {
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:5000/predict', {
+      const response = await axios.post('https://instagram-reach-analysis.onrender.com/predict', {
         likes: values.likes,
         saves: values.saves,
         comments: values.comments,
