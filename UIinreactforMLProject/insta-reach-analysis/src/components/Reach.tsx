@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Form, InputNumber, Button, Typography, message, Card, Row, Col, Switch } from 'antd';
 import axios from 'axios';
-import './PredictImpression.css'; // Import CSS for custom animations
+import './PredictImpression.css'; // Import the external CSS
 
-const { Title } = Typography;
+const { Title, Paragraph } = Typography;
 
 interface UnsplashImage {
   id: string;
@@ -61,32 +61,18 @@ const PredictImpression: React.FC = () => {
 
   return (
     <div
-      style={{
-        backgroundImage: randomImage ? `url(${randomImage})` : 'none',
-        backgroundColor: isDarkMode ? '#121212' : '#f0f0f0', // Dark or light background
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: '20px',
-        color: isDarkMode ? 'white' : 'black', // White text in dark mode, black in light mode
-      }}
+      className={`predict-impression-container ${isDarkMode ? 'dark-mode' : 'light-mode'}`} // Use CSS classes for styling
+      style={{ backgroundImage: randomImage ? `url(${randomImage})` : 'none' }}
     >
-      <Card
-        style={{
-          width: '80%',
-          padding: '20px',
-          borderRadius: '15px',
-          backgroundColor: isDarkMode ? '#19222B' : '#ccc',
-          backdropFilter: isDarkMode ? 'blur(10px)' : 'none',
-          boxShadow: '0 8px 20px rgba(0, 0, 0, 0.5)',
-        }}
-      >
+      <Card className="predict-impression-card">
         <Row justify="space-between">
           <Col>
-            <Title level={2} style={{ color: isDarkMode ? 'white' : 'black' }}>
-              Predict Impressions
-            </Title>
+          <div className="header">
+    <Title className="header-title" level={2}>
+      <span className="header-icon" role="img" aria-label="star">⭐</span>
+      Predict Impressions
+    </Title>
+  </div>
           </Col>
           <Col>
             <Switch
@@ -97,50 +83,34 @@ const PredictImpression: React.FC = () => {
             />
           </Col>
         </Row>
-        <Row gutter={32}>
+        <Row gutter={[16, 16]} justify="center">
           {/* Left Column - Input Form */}
-          <Col span={12}>
+          <Col xs={24} md={12}>
             <Form layout="vertical" onFinish={handleSubmit}>
-              <Form.Item
-                label={<span style={{ color: isDarkMode ? 'white' : 'black' }}>Likes</span>}
-                name="likes"
-                rules={[{ required: true, message: 'Please input the number of likes!' }]}
-              >
+              <Form.Item label="Likes" name="likes" rules={[{ required: true, message: 'Please input the number of likes!' }]}>
+                <InputNumber min={0} style={{ width: '100%' }} />
+              </Form.Item>
+              <Form.Item label="Saves" name="saves" rules={[{ required: true, message: 'Please input the number of saves!' }]}>
                 <InputNumber min={0} style={{ width: '100%' }} />
               </Form.Item>
               <Form.Item
-                label={<span style={{ color: isDarkMode ? 'white' : 'black' }}>Saves</span>}
-                name="saves"
-                rules={[{ required: true, message: 'Please input the number of saves!' }]}
-              >
-                <InputNumber min={0} style={{ width: '100%' }} />
-              </Form.Item>
-              <Form.Item
-                label={<span style={{ color: isDarkMode ? 'white' : 'black' }}>Comments</span>}
+                label="Comments"
                 name="comments"
                 rules={[{ required: true, message: 'Please input the number of comments!' }]}
               >
                 <InputNumber min={0} style={{ width: '100%' }} />
               </Form.Item>
-              <Form.Item
-                label={<span style={{ color: isDarkMode ? 'white' : 'black' }}>Shares</span>}
-                name="shares"
-                rules={[{ required: true, message: 'Please input the number of shares!' }]}
-              >
+              <Form.Item label="Shares" name="shares" rules={[{ required: true, message: 'Please input the number of shares!' }]}>
                 <InputNumber min={0} style={{ width: '100%' }} />
               </Form.Item>
               <Form.Item
-                label={<span style={{ color: isDarkMode ? 'white' : 'black' }}>Profile Visits</span>}
+                label="Profile Visits"
                 name="profileVisits"
                 rules={[{ required: true, message: 'Please input the number of profile visits!' }]}
               >
                 <InputNumber min={0} style={{ width: '100%' }} />
               </Form.Item>
-              <Form.Item
-                label={<span style={{ color: isDarkMode ? 'white' : 'black' }}>Follows</span>}
-                name="follows"
-                rules={[{ required: true, message: 'Please input the number of follows!' }]}
-              >
+              <Form.Item label="Follows" name="follows" rules={[{ required: true, message: 'Please input the number of follows!' }]}>
                 <InputNumber min={0} style={{ width: '100%' }} />
               </Form.Item>
               <Form.Item>
@@ -152,30 +122,25 @@ const PredictImpression: React.FC = () => {
           </Col>
 
           {/* Right Column - Predicted Impression */}
-          <Col span={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <Col span={12} className="impression-result-container">
             {impression !== null ? (
-              <div
-                className="animated-impression" // Apply the animation
-                style={{
-                  textAlign: 'center',
-                  backgroundColor: isDarkMode ? '#1f1f1f' : '#fafafa',
-                  padding: '30px',
-                  borderRadius: '15px',
-                  width: '100%',
-                  boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.3)',
-                  color: isDarkMode ? 'white' : 'black',
-                }}
-              >
-                <Title level={1} style={{ fontSize: '60px', color: '#00e676' }}>
-                  {impression}
+              <div className="animated-impression">
+                <Title className="impression-value" level={1}>
+                  {impression} <span role="img" aria-label="celebrate">🎉</span>
                 </Title>
-                <Title level={4} style={{ marginTop: '10px', color: isDarkMode ? 'white' : 'black' }}>
-                  Predicted Impression
+                <Title className="impression-label" level={4}>
+                  Predicted Impressions
                 </Title>
+                <Paragraph className="impression-explanation">
+                  Based on your inputs: <br />
+                  <span role="img" aria-label="thumbs-up">👍</span> Likes, <span role="img" aria-label="bookmark">🔖</span> Saves, <span role="img" aria-label="comment">💬</span> Comments, <span role="img" aria-label="share">🔗</span> Shares, 
+                  <span role="img" aria-label="eye">👁</span> Profile Visits, and <span role="img" aria-label="follow">➕</span> Follows, <br />
+                  we predict this will be your reach on Instagram!
+                </Paragraph>
               </div>
             ) : (
-              <Title level={3} style={{ textAlign: 'center', color: isDarkMode ? '#888' : '#444' }}>
-                No prediction yet
+              <Title className="no-prediction-text" level={3}>
+                No prediction yet <span role="img" aria-label="thinking">🤔</span>
               </Title>
             )}
           </Col>

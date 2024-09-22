@@ -1,15 +1,140 @@
+/* PredictImpression.css */
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header-title {
+  font-size: 2rem; /* Adjust as needed */
+  margin: 0;
+}
+
+.header-icon {
+  margin-right: 10px; /* Space between icon and text */
+}
+
+.dark-mode .header-title {
+  color: white; /* White text for dark mode */
+}
+
+.light-mode .header-title {
+  color: black; /* Black text for light mode */
+}
+
+.predict-impression-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align to the top */
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.dark-mode {
+  background-color: #121212;
+  color: white; /* Ensures text inside the dark-mode container is white */
+}
+
+.light-mode {
+  background-color: #f0f0f0;
+  color: black;
+}
+
+.predict-impression-card {
+  width: 90%;
+  max-width: 1200px;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.dark-mode .predict-impression-card {
+  background-color: #212020;
+}
+.light-mode .predict-impression-card {
+  background-color: #ccc;
+}
+
+/* Ensure that text color inside dark mode is white */
+.dark-mode .predict-title,
+.dark-mode .impression-explanation,
+.dark-mode .impression-value,
+.dark-mode .impression-label,
+.dark-mode .no-prediction-text,
+.dark-mode .ant-form-item-label > label {
+  color: white;
+}
+
+.light-mode .predict-title,
+.light-mode .impression-value,
+.light-mode .impression-label,
+.light-mode .no-prediction-text,
+.light-mode .ant-form-item-label > label {
+  color: black;
+}
+
+.impression-result-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .animated-impression {
-    animation: fadeInScale 0.7s ease-in-out;
+  text-align: center;
+  background-color: #1f1f1f;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  color: white;
+  animation: emoji-fade-in 1s ease-in-out;
+}
+
+.light-mode .animated-impression {
+  background-color: #fafafa;
+  color: black;
+}
+
+@keyframes emoji-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
   }
-  
-  @keyframes fadeInScale {
-    0% {
-      opacity: 0;
-      transform: scale(0.5);
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
+}
+
+.no-prediction-text {
+  text-align: center;
+  color: #888;
+}
+
+.light-mode .no-prediction-text {
+  color: #444;
+}
+
+/* Responsive font size for small screens */
+@media (max-width: 768px) {
+  .impression-value {
+    font-size: 40px;
+  }
+
+  .predict-impression-card {
+    padding: 10px;
+  }
+
+  .animated-impression {
+    padding: 20px;
+  }
+}
+.predict-impression-card button {
+  transition: background-color 0.3s ease;
+}
+
+.predict-impression-card button:hover {
+  background-color: #0056b3; /* A darker shade for hover effect */
+  color: white; /* Ensure text is visible on hover */
+}
